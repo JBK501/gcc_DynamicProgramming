@@ -1,83 +1,41 @@
-﻿#include <iostream>
-#include <string>
-#include <map>
+﻿#include "Ex1.h"
+#include "Ex2.h"
 
-// 피보나치
-// 첫번째와 두번째는 항상 1이고, 그 이후는 앞의 두 숫자를 더한 것
+using namespace std;
 
-// F(1) = 1
-// F(2) = 1
-// F(3) = 1 + 1 = 2
-// F(4) = 1 + 2 = 3
-
-// 시간복잡도 : O(2^n)
-// 공간복잡도 : O(n)
-int Fibonacci(int n)
+void Print(std::shared_ptr<integers> result)
 {
-    if (n <= 2)
-        return 1;
+    if (result == nullptr)
+    {
+        std::cout << "nullptr" << std::endl;
+        return;
+    }
 
-    return Fibonacci(n - 1) + Fibonacci(n - 2);
+    std::cout << "{";
+    for (const auto& e : *result)
+    {
+        std::cout << e << ", ";
+    }
+    std::cout << "}" << std::endl;
 }
 
-
-// 시간복잡도 : O(n)
-// 공간복잡도 : O(n)
-int64_t FibonacciOPT(int n, std::map<int, int64_t>& history)
+void Print(const EX2::listlist & result)
 {
-    if (history.count(n) == 1)
-        return history[n];
+    std::cout << "{" << std::endl;
 
-    if (n <= 2)
-        return 1;
+    for (const auto& e1 : result)
+    {
+        cout << "\t{";
 
-    history[n] = FibonacciOPT(n - 1, history) + FibonacciOPT(n - 2, history);
-    return history[n];
-}
+        for (const auto& e2 : e1)
+        {
+            cout << e2 << ", ";
+        }
 
-// Find Path
-// M x n의 영역에서 좌상단 -> 우하단으로 이동하는 모든 경우의 수
-// 이동은 오른쪽이나 아래쪽으로만 할 수 있습니다.
+        cout << "}," << endl;
+    }
 
-// 시간복잡도 : O(2^(m+n))
-// 공간복잡도 : O(m+n)
-int FindPath(int m, int n)
-{
-    // base
-    if (m == 0 || n == 0)
-        return 0;
-
-    if (m == 1 && n == 1)
-        return 1;
-
-    return FindPath(m - 1, n) + FindPath(m, n - 1);
-}
-
-// 정답 저장
-// <string, int(정답)> : "m,n"
-
-// 시간복잡도 : O(m x n)
-// 공간복잡도  : O(m + n)
-using path_history = std::map<std::string, int>;
-int FindPathOPT(int m, int n, path_history& h)
-{
-    const std::string key = std::to_string(m) + "," + std::to_string(n);
-    if (h.count(key) == 1)
-        return h[key];
-
-    const std::string rkey = std::to_string(n) + "," + std::to_string(m);
-    if (h.count(rkey) == 1)
-        return h[rkey];
-
-    // base
-    if (m == 0 || n == 0)
-        return 0;
-
-    if (m == 1 && n == 1)
-        return 1;
-
-    h[key] = FindPathOPT(m - 1, n, h) + FindPathOPT(m, n - 1, h);
-    return h[key];
+    std::cout << "}" << std::endl;
 }
 
 int main()
@@ -89,7 +47,55 @@ int main()
 
     //std::cout << FindPath(20,20) << std::endl;
 
-    path_history h;
-    std::cout << FindPathOPT(20, 20, h)<<std::endl;
+    /*path_history h;
+    std::cout << FindPathOPT(20, 20, h)<<std::endl;*/
+
+    //std::cout << CanAccumulate(7, { 2,4 }) << std::endl;
+
+    //accum_history h;
+    //std::cout << CanAccumulateOPT(8, { 2,3,5 }, h) << std::endl;
+
+    /*Print(HowAccumulate(8, { 2,3,5 }));
+    Print(HowAccumulate(7, { 2,4 }));*/
+
+    //how_accum_history h;
+    //Print(HowAccumulateOPT(8, { 2,3,5 }, h));
+    //h.clear();
+    //Print(HowAccumulateOPT(7, { 2,4 }, h));
+
+    //h.clear();
+    //Print(MinAccumulate(8, { 2,3,5 }, h));
+
+    //h.clear();
+    //Print(MinAccumulate(7, { 2,4 }, h));
+
+    //h.clear();
+    //Print(MinAccumulate(720, { 500,100,50,10 }, h));
+
+   /* std::cout<<EX2::CanGenerate("abcdef", { "ab","abc","cd","def","abcd" })<<std::endl;
+    std::cout << EX2::CanGenerate("abcd", { "a","b","c","d"}) << std::endl;
+    std::cout << EX2::CanGenerate("hello", { "a","b","c","d" }) << std::endl;
+
+    EX2::gen_history h;
+    std::cout << EX2::CanGenerateOPT("abcdef", { "ab","abc","cd","def","abcd" },h) << std::endl;
+    h.clear();
+    std::cout << EX2::CanGenerateOPT("abcd", { "a","b","c","d" },h) << std::endl;
+    h.clear();
+    std::cout << EX2::CanGenerateOPT("hello", { "a","b","c","d" },h) << std::endl;*/
+
+    /*EX2::gen_history2 h;
+    std::cout << EX2::HowManyGenerate("abcdef", { "ab", "abc", "cd", "def", "abcd" }, h) << std::endl;
+    h.clear();
+    std::cout << EX2::HowManyGenerate("abcd", { "a","b","c","d" }, h) << std::endl;
+    h.clear();
+    std::cout << EX2::HowManyGenerate("hello", { "a","b","c","d" }, h) << std::endl;*/
+
+
+    Print(EX2::FindGenerateAll("hello", { "h","e","he","llo","hll" }));
+
+    EX2::gen_history3 h;
+    Print(EX2::FindGenerateOPT("hello", { "h","e","he","llo","hll" },h));
+
 }
+
 
