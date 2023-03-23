@@ -147,6 +147,8 @@ bool CanAccumulateOPT(int sum, integers numbers, accum_history& h)
 // HowAccumulate(8, {2,3,5})
 // 출력 : {2,2,2,2} 또는 {3,5} 또는 {2,3,3}
 // HowAccumulate(7, {2,4})
+// 출력 : nullptr
+// HowAccumulate(0, {2,4})
 // 출력 : {}
 
 std::shared_ptr<integers> HowAccumulate(int sum, integers numbers)

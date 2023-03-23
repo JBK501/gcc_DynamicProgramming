@@ -1,5 +1,6 @@
 ﻿#include "Ex1.h"
 #include "Ex2.h"
+#include "Ex3.h"
 
 using namespace std;
 
@@ -38,7 +39,8 @@ void Print(const EX2::listlist & result)
     std::cout << "}" << std::endl;
 }
 
-int main()
+
+void DP1()
 {
     //std::cout << Fibonacci(50) << std::endl;
 
@@ -91,11 +93,23 @@ int main()
     std::cout << EX2::HowManyGenerate("hello", { "a","b","c","d" }, h) << std::endl;*/
 
 
-    Print(EX2::FindGenerateAll("hello", { "h","e","he","llo","hll" }));
+    /*Print(EX2::FindGenerateAll("hello", { "h","e","he","llo","hll" }));
 
     EX2::gen_history3 h;
-    Print(EX2::FindGenerateOPT("hello", { "h","e","he","llo","hll" },h));
+    Print(EX2::FindGenerateOPT("hello", { "h","e","he","llo","hll" }, h));*/
+}
 
+int main()
+{
+    /*cout << EX3::Fibonacci(50) << endl;*/
+
+    /*cout << EX3::FindPath(2, 3) << endl;*/
+
+    /*cout << EX3::CanAccumulate(8, { 2,3,5 }) << endl;*/
+    
+    /*Print(EX3::HowAccumulate(8, { 2,3,5 }));*/
+
+    Print(EX3::MinAccumulate(8, { 2,3,5 }));
 }
 
 
