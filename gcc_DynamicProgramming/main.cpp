@@ -109,7 +109,15 @@ int main()
     
     /*Print(EX3::HowAccumulate(8, { 2,3,5 }));*/
 
-    Print(EX3::MinAccumulate(8, { 2,3,5 }));
+    /*Print(EX3::MinAccumulate(8, { 2,3,5 }));*/
+
+    /*cout << EX3::CanGenerate("abcdef", { "ab","abc","cd","def","abcd" }) << endl;*/
+
+    /*cout << EX3::HowManyGenereate("abcdef", { "ab","abc","cd","def","abcd" }) << endl;
+    cout << EX3::HowManyGenereate("hello", { "h","e","he","llo","hll" }) << endl;*/
+
+    /*Print(EX3::FindGenerateAll("abcdef", { "ab","abc","cd","def","abcd" }));*/
+
 }
 
 

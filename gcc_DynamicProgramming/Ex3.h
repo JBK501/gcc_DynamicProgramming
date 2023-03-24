@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 namespace EX3
 {
@@ -174,4 +175,135 @@ namespace EX3
 		return table[sum];
 	}
 
+	// 주어진 문자열의 집합 stringlist에서 target 문자열을 만들 수 있는가?
+	// target을 만들기 위해 동일한 원소를 여러번 사용해도 됩니다.
+	// target이 빈 문자열이면 아무것도 선택하지 않는 경우이므로 참입니다. 
+
+	// "abcdef" { "ab", "abc", "cd", "def", "abcd"}
+
+	// target의 길이 : m, list 원소 개수 : n
+	// 시간복잡도 : O(m^2 * n)
+	// 공간복잡도 :	O(m)
+
+	using strings = std::vector<std::string>;
+
+	bool CanGenerate(const std::string target, const strings& list)
+	{
+		std::vector<bool> table(target.size() + 1, false);
+
+		table[0] = true;
+
+		for (unsigned int i = 0; i <= target.length(); i++)
+		{
+			if (table[i] == true)
+			{
+				for (const auto& e : list)
+				{
+					if (i + e.length() <= target.length())
+					{
+						if (target.substr(i, e.length()) == e)
+						{
+							table[i + e.length()] = true;
+						}
+					}
+				}
+			}
+		}
+
+		return table[target.length()];
+	}
+
+
+	// 주어진 문자열의 집합 stringlist에서 target 문자열을 만들 수 있는 모든 경우의 수를 반환
+	// target을 만들기 위해 동일한 원소를 여러번 사용해도 됩니다.
+	// target이 빈 문자열이면 아무것도 선택하지 않는 경우이므로 참입니다. 
+
+	// "abcdef" { "ab", "abc", "cd", "def", "abcd"}
+	// output : 1
+
+	// 시간복잡도 : O(m^2*n)
+	// 공간복잡도 : O(m)
+
+	int HowManyGenereate(const std::string target, const strings& list)
+	{
+		std::vector<int> table(target.length() + 1);
+
+		table[0] = 1;
+
+		for (size_t i = 0; i <= target.length(); i++)
+		{
+			if (table[i] > 0)
+			{
+				for (const auto& e : list)
+				{
+					if (i + e.length() <= target.length())
+					{
+						if (target.substr(i, e.length()) == e)
+						{
+							table[i + e.length()] += table[i];
+						}
+					}
+				}
+			}
+		}
+		return table[target.length()];
+	}
+
+
+	// 주어진 문자열의 집합 stringlist에서 target 문자열을 만들 수 있는 모든 경우의 수(배열)를 배열로 반환
+	// target을 만들기 위해 동일한 원소를 여러번 사용해도 됩니다.
+	// target이 빈 문자열이면 아무것도 선택하지 않는 경우이므로 참입니다. 
+
+	// "hello" {"he","h","e","llo"}
+	// {
+	//	 {"he", "llo"}
+	//	 {"h" "e" "llo"}
+	// }
+
+	// "abcdef" { "ab", "abc", "cd", "def", "abcd"}
+	// {"abc","def}
+
+	// "hello" {"a","b","c"}
+	// {}
+
+	// ""	{"a","b","c"}
+	// {
+	//	{}
+	// }
+
+	// m : target 길이, n : 집합의 크기
+	// 시간복잡도 : O(n^m)
+	// 공간복잡도 : O(m^2*n)
+
+	using listlist = std::list<std::list<std::string>>;
+
+	listlist FindGenerateAll(std::string target, const strings& list)
+	{
+		std::vector<listlist> table(target.length() + 1);
+
+		table[0] = listlist{ {} };
+
+		for (size_t i = 0; i <= target.length(); i++)
+		{
+			if (table[i].size() > 0)
+			{
+				for (const auto& e : list)
+				{
+					if (target.substr(i, e.length())== e)
+					{
+						for (auto e2 : table[i])
+						{
+							if (i + e.length() <= target.length())
+							{
+								e2.push_back(e);
+								table[i + e.length()].push_back(e2);
+							}
+						}
+					}
+				}
+				
+			}
+		}
+		return table[target.length()];
+	}
 }
